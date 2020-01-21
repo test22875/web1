@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+	<button onclick="openDataPortal()">출력</button>
+	<button onclick="closeWindow()">테스트</button>
+	<script>
+		var popup;
+		function openDataPortal()
+		{
+			popup = window.open("http://www.data.go.kr");
+		}
+		function openKospoPortal()
+		{
+			popup = window.open("http://www.naver.com", "_self");
+		}
+		function closeWindow()
+		{
+			popup.close();
+			document.write("<button onclick='openKospoPortal()'>완료</button>");
+			//window.opener.document.location.href=window.opener.document.URL;
+		}
+		function window.onunload(){
+			popup.close();
+		}
+	</script>
+</body>
+</html>

@@ -7,7 +7,12 @@
 <body>
 	<button onclick="openDataPortal()">출력</button>
 	<button onclick="closeWindow()">테스트</button>
-	<script>
+	<script
+  		src="https://code.jquery.com/jquery-3.4.1.js"
+  		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous">
+  	</script>
+  	<script>
 		var popup;
 		function openDataPortal()
 		{
@@ -22,6 +27,16 @@
 			popup.close();
 			document.write("<button onclick='openKospoPortal()'>완료</button>");
 		}
+	</script>
+	<script>
+		$.ajax({
+  			method: "GET",
+  			url: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D&_returnType=json",
+  			//data: { name: "John", location: "Boston" }
+		})
+  		.done(function( msg ) {
+    		console.log(msg);
+  		 });
 	</script>
 </body>
 </html>

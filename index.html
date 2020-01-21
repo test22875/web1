@@ -1,80 +1,49 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-	<meta charset="UTF-8">
-	<title>test</title>
-</head>
-<body>
-	<button onclick="openDataPortal()">출력</button>
-	<button onclick="closeWindow()">테스트</button>
-	<script
-  		src="https://code.jquery.com/jquery-3.4.1.js"
-  		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  		crossorigin="anonymous">
-  	</script>
-  	<script>
-		var popup;
-		function openDataPortal()
-		{
-			popup = window.open("http://www.data.go.kr");
-		}
-		function openKospoPortal()
-		{
-			popup = window.open("http://www.naver.com", "_self");
-		}
-		function closeWindow()
-		{
-			popup.close();
-			document.write("<button onclick='openKospoPortal()'>완료</button>");
-		}
-	</script>
-	<script>
-		$.ajax({
-  			method: "GET",
-  			url: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
-  			//data: { name: "John", location: "Boston" }
-		})
-  		.done(function( msg ) {
-    		console.log(msg);
-  		 });
-	</script>
-</body>
-</html>
 
-<!--
-<!DOCTYPE html>
-<html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>test</title>
+	<title>XML INTRO</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	</style>
 	<script>
-		var popup;
-		function kkk()
-		{
-			alert("sdfsdfsd");
-		}	
-		function openDataPortal()
-		{
-			popup = window.open("http://www.data.go.kr");
+		function loadDoc() {
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() {
+				if(this.status == 200 && this.readyState == this.DONE) {
+					displayData(xmlHttp);
+				}
+			};
+			xmlHttp.open("GET", "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D", true);
+			xmlHttp.send();
 		}
-		function openKospoPortal()
-		{
-			popup = window.open("http://www.naver.com", "_self");
+
+		function displayData(xmlHttp) {
+			var xmlObj, cityList, result, idx;
+			xmlObj = xmlHttp.responseXML;	// 요청한 데이터를 XML DOM 객체로 반환함.
+			result = "<table><tr><th>도시 이름</th><th>행정구역</th></tr>";
+			cityList = xmlObj.getElementsByTagName("city");
+			for(idx = 0; idx < cityList.length; idx++) {
+				result += "<tr><td>" + 
+					cityList[idx].getElementsByTagName("name")[0].childNodes[0].nodeValue + "</td><td>" +
+					cityList[idx].getElementsByTagName("class")[0].childNodes[0].nodeValue + "</td></tr>";
+			}
+			result += "</table>";
+			document.getElementById("text").innerHTML = result;
 		}
-		function closeWindow()
-		{
-			popup.close();
-			document.write("<button onclick='openKospoPortal()'>완료</button>");
-			//window.opener.document.location.href=window.opener.document.URL;
-		}
-		function window.onunload(){
-			popup.close();
-		}
-	</script>	
+	</script>
 </head>
+
 <body>
-	<button onclick="kkk()">출력</button>
-	<button onclick="closeWindow()">테스트</button>
+
+	<h1>HTML로부터 데이터 분리</h1>
+	<button onclick="loadDoc()">XML 데이터 불러오기!</button>
+	<p id="text"></p>
+	
 </body>
+
 </html>
--->

@@ -13,7 +13,7 @@
 	<script>
 		$.ajax({
   			method: "GET",
-  			url: "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
+  			url: "https://cors-anywhere.herokuapp.com/http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
 		})
   		.done(function( msg ) {
     		console.log(msg);

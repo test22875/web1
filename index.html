@@ -5,19 +5,22 @@
 	<title>test</title>
 </head>
 <body>
-	<script
-  		src="https://code.jquery.com/jquery-3.4.1.js"
-  		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  		crossorigin="anonymous">
-  	</script>
+	<button onclick="openDataPortal()">출력</button>
 	<script>
-		$.ajax({
-  			method: "GET",
-  			url: "https://cors-anywhere.herokuapp.com/http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=10&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
-		})
-  		.done(function( msg ) {
-    		console.log(msg);
-  		 });
+		var popup;
+		function openDataPortal()
+		{
+			popup = window.open("popup.html");
+		}
+		function openKospoPortal()
+		{
+			popup = window.open("http://www.naver.com", "_self");
+		}
+		function closeWindow()
+		{
+			popup.close();
+			document.write("<button onclick='openKospoPortal()'>완료</button>");
+		}
 	</script>
 </body>
 </html>

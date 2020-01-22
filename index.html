@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>test</title>
+	<title>main</title>
 </head>
 <body>
 	<button onclick="openDataPortal()">출력</button>
@@ -12,15 +12,12 @@
 		{
 			popup = window.open("popup.html", "popup", "width=500, height=600");
 		}
-		function openKospoPortal()
-		{
-			popup = window.open("http://www.naver.com", "_self");
-		}
-		function closeWindow()
-		{
-			popup.close();
-			document.write("<button onclick='openKospoPortal()'>완료</button>");
-		}
+		var timer = setInterval(function(){
+			if(popup.closed){
+				clearInterval(timer);
+				location.href = "move.html"
+			}
+		}, 500);
 	</script>
 </body>
 </html>

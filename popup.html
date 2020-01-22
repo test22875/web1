@@ -3,12 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>대기오염 정보 조회 서비스</title>
+	<style>
+		table{
+			width: 50%;
+			border: 1px solid black;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		th, td{
+			border: 1px solid black;
+		}
+	</style>
 </head>
 <body>
-	<h1>대기오염 정보 조회 서비스</h1>
-	<h2>시도별 실시간 평균정보 조회(일별)</h2>
-	<h3>미세먼지(PM10)</h3>
-	<p id="text"></p>
+	<h1>대기오염 정보 조회 서비스: 미세먼지(PM10)</h1>
+	<h2>시도별 실시간 평균정보 조회(최근 6시간)</h2>
+	<hr>
+	<p></p>
 	<script
   		src="https://code.jquery.com/jquery-3.4.1.js"
   		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -18,20 +29,22 @@
 		var mmm;
 		$.ajax({
   			method: "GET",
-  			url: "https://cors-anywhere.herokuapp.com/http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=DAILY&searchCondition=MONTH&pageNo=1&numOfRows=2&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
+  			url: "https://cors-anywhere.herokuapp.com/http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureLIst?itemCode=PM10&dataGubun=HOUR&searchCondition=WEEK&pageNo=1&numOfRows=6&ServiceKey=dyLpF9QTGW3ORWozLvNt0U%2BxhWoPenMgetqresxmP5k012qtHNTYrcbRRp4iethCHO%2F54Sb6yF1lFkzGiPUeCw%3D%3D"
 		})
   		.done(function( msg ) {
-  			//console.log(msg);
     		var xmlData = $(msg).find("item");
     		var listLength = xmlData.length;
     		if(listLength){
-    			var contentStr = "";
+    			var contentStr = "<table><tr><th>일시</th><th>서울</th><th>부산</th><th>대구</th><th>대전</th></tr>";
     			$(xmlData).each(function(){
-    				contentStr += "날짜" + $(this).find("dataTime").text() + "<br><br>"
-    							+ "서울 " + $(this).find("seoul").text() + "<br>"
-    							+ "부산 " + $(this).find("busan").text() + "<br>";
+    				contentStr += "<tr><td>" + $(this).find("dataTime").text() + "</td><td>"
+    							+ $(this).find("seoul").text() + "</td><td>"
+    							+ $(this).find("busan").text() + "</td><td>"
+    							+ $(this).find("daegu").text() + "</td><td>"
+    							+ $(this).find("daejeon").text() + "</td></tr>";
     			});
-  			$("#text").append(contentStr);
+    		contentStr += "</table>"
+  			$("p").append(contentStr);
     		}
   		 });
 
